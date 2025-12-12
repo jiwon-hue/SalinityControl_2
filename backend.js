@@ -28,7 +28,7 @@ const initDB = async () => {
         mac_address VARCHAR(17) PRIMARY KEY,
         name VARCHAR(50),
         salinity FLOAT DEFAULT 0,
-        target_salinity FLOAT DEFAULT 0,
+        target_salinity FLOAT DEFAULT 100,
         valve BOOLEAN DEFAULT FALSE,
         manual_mode BOOLEAN DEFAULT FALSE,
         is_final BOOLEAN DEFAULT FALSE,
@@ -56,7 +56,7 @@ app.post('/api/device/sync', async (req, res) => {
        VALUES (?, ?, ?, ?, ?, ?)
        ON DUPLICATE KEY UPDATE 
        salinity = VALUES(salinity),
-       valve = VALUES(valve),
+       valve = IF(manual_mode = 1, valve, VALUES(valve)),
        lat = VALUES(lat),
        lng = VALUES(lng),
        address = VALUES(address),
@@ -154,3 +154,4 @@ app.listen(3000, () => {
   console.log('서버 실행중');
 
 });
+
