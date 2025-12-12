@@ -56,6 +56,7 @@ app.post('/api/device/sync', async (req, res) => {
        VALUES (?, ?, ?, ?, ?, ?)
        ON DUPLICATE KEY UPDATE 
        salinity = VALUES(salinity),
+       valve = VALUES(valve),
        lat = VALUES(lat),
        lng = VALUES(lng),
        address = VALUES(address),
@@ -151,4 +152,5 @@ app.put('/api/device/:mac', async (req, res) => {
 
 app.listen(3000, () => {
   console.log('서버 실행중');
+
 });
