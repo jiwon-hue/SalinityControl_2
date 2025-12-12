@@ -47,7 +47,7 @@ initDB();
 
 // [1] 아두이노용: 데이터 동기화 (센서값 저장 + 명령 반환)
 app.post('/api/device/sync', async (req, res) => {
-  const { mac, salinity, valveState, lat, lng, address } = req.body;
+  const { mac, salinity, valve, lat, lng, address } = req.body;
   
   try {
     // [수정] devices -> saltern_db.devices 로 변경
@@ -61,7 +61,7 @@ app.post('/api/device/sync', async (req, res) => {
        lng = VALUES(lng),
        address = VALUES(address),
        updated_at = NOW()`,
-      [mac, salinity, valveState, lat, lng, address]
+      [mac, salinity, valve, lat, lng, address]
     );
 
     // [수정] devices -> saltern_db.devices 로 변경
@@ -154,4 +154,5 @@ app.listen(3000, () => {
   console.log('서버 실행중');
 
 });
+
 
